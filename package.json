@@ -18,7 +18,9 @@
   },
   "homepage": "https://github.com/Mdellit110/sub-waze#readme",
   "dependencies": {
+    "bcrypt": "^3.0.4",
     "express": "^4.16.4",
+    "jsonwebtoken": "^8.5.0",
     "pg": "^7.9.0",
     "sequelize": "^5.1.0"
   }

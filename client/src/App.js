@@ -32,7 +32,7 @@ class App extends Component {
         password: ""
       },
       userData: {},
-      stationList: {},
+      stationData: {},
       userInput: "",
       autocompleteOptions: [],
       activeOption: 0,
@@ -44,6 +44,7 @@ class App extends Component {
     this.handleQueryKeyDown = this.handleQueryKeyDown.bind(this);
     this.handleQuerySubmit = this.handleQuerySubmit.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
+    this.fetchStations = this.fetchStations.bind(this);
   }
 
   handleQueryChange = e => {
@@ -133,6 +134,13 @@ class App extends Component {
     });
   }
 
+  async fetchStations() {
+    const stationData = await fetchStations();
+    this.setState((prevState, newState) => ({
+      stationData: stationData
+    }));
+  }
+
   async componentDidMount() {
     await this.fetchStations;
     const checkUser = localStorage.getItem("jwt");
@@ -159,17 +167,16 @@ class App extends Component {
                 show={this.state.currentUser}
                 onChange={this.newUserHandleChange}
                 onSubmit={this.newUserHandleSubmit}
-                user={this.state.userFormData.user}
-                email={this.state.userFormData.email}
-                password={this.state.userFormData.password}
+                user={this.state.registerFormData.user}
+                email={this.state.registerFormData.email}
+                password={this.state.registerFormData.password}
               />
               <LoginForm
                 show={this.state.currentUser}
                 onChange={this.userHandleChange}
                 onSubmit={this.userHandleSubmit}
-                user={this.state.userFormData.user}
-                email={this.state.userFormData.email}
-                password={this.state.userFormData.password}
+                email={this.state.loginFormData.email}
+                password={this.state.loginFormData.password}
               />
             </>
           )}
@@ -188,6 +195,7 @@ class App extends Component {
               showOptions={this.state.showOptions}
               userInput={this.state.userInput}
               filteredOptions={this.state.filteredOptions}
+              activeOptions={this.state.activeOption}
             />
           )}
         />

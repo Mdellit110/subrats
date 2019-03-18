@@ -29,30 +29,32 @@ Major problems we anticipate include login and authorization, as well as recogni
 In researching solutions for these problems, our team anticipates using local storage and potentially oAuth\* for login capabilities. As well, we have found an api that provides some data for train arrivals and departures.
 
 **MVP**
-\*Our app MVP contains the following:
-Styled front-end using CSS and Stylized Components
-Component-based(React) front-end with an efficient App hierarchy
-User Features:
+Our app MVP contains the following:
 
-- Adding favorite subway stations
-- Adding reviews of subway stations and comments including lines and routes
-- Creating a user profile
-- Searching for other stations and reviews
+- Styled front-end using CSS and Stylized Components
+- Component-based(React) front-end with an efficient App hierarchy
+- User Features:
+  - Adding favorite subway stations
+  - Adding reviews of subway stations and comments including lines and routes
+  - Creating a user profile
+  - Searching for other stations and reviews
 - An authorization system that allows a user to register and log in
   - oAuth\*
+- Adding a chart for stations mapping trends of user comments
 - Server with logical databases and relations between those databases
 - User ability to create, update, read, and destroy information in databases
 - Administrative Features\*: - See all information(? Is this safe ?)
   Ability to delete and update user information
   Functionality to hit an API and return mta data to the user
 
-_all items marked with (_) are POST-MVP items
+\*all items marked with (\*) are POST-MVP items
 
 **component library**
 List of react components:
 
 - Login (function)
 - Register (function)
+- Logout (function)
 - Home (function)
 - UserProfile (function)
 - Contact (function)

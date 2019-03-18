@@ -59,7 +59,7 @@ usersRouter.post('/login', async (req, res, next) => {
    }
  });
 
-const isPassValid = await checkPassword(password, user.password_digest);
+const isPassValid = await checkPassword(password, user.password_digest)
 if (isPassValid) {
   const {
     password_digest,

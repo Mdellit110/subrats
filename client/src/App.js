@@ -12,6 +12,10 @@ import CommentForm from "./components/CommentForm";
 import UserProfile from "./components/UserProfile";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
+// jwt-decode lets us decode json web token and access the data in them
+import decode from "jwt-decode";
+import { createNewUser, loginFormData } from "./services/users-helpers";
+import fetchStations from "./services/stations-helpers";
 
 class App extends Component {
   constructor(props) {
@@ -28,7 +32,7 @@ class App extends Component {
         password: ""
       },
       userData: {},
-      stationList: {},
+      stationData: {},
       userInput: "",
       autocompleteOptions: [],
       activeOption: 0,
@@ -39,6 +43,8 @@ class App extends Component {
     this.handleQueryClick = this.handleQueryClick.bind(this);
     this.handleQueryKeyDown = this.handleQueryKeyDown.bind(this);
     this.handleQuerySubmit = this.handleQuerySubmit.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
+    this.fetchStations = this.fetchStations.bind(this);
   }
 
   handleQueryChange = e => {
@@ -102,12 +108,56 @@ class App extends Component {
     }));
   }
 
+  async handleLogin() {
+    const userData = await loginUser(this.state.loginFormData);
+    this.setState({
+      currentUser: userData.user,
+      userData: userData
+    });
+    localStorage.setItem("jwt", userData.token);
+  }
+
+  async handleRegister(e) {
+    e.preventDefault();
+    const userData = await createNewUser(this.state.registerFormData);
+    this.setState({
+      currentUser: userData.user,
+      userData: userData
+    });
+    localStorage.setItem("jwt", userData.token);
+  }
+
+  handleLogout() {
+    localStorage.removeItem("jwt");
+    this.setState({
+      currentUser: null
+    });
+  }
+
+  async fetchStations() {
+    const stationData = await fetchStations();
+    this.setState((prevState, newState) => ({
+      stationData: stationData
+    }));
+  }
+
+  async componentDidMount() {
+    await this.fetchStations;
+    const checkUser = localStorage.getItem("jwt");
+    if (checkUser) {
+      const user = decode(checkUser);
+      this.setState({
+        currentUser: user
+      });
+    }
+  }
+
   render() {
     return (
       <div className="Main-app-body">
         <h1>Subway Rats</h1>
         <Header />
-        <Footer />
+        <Footer handleLogout={this.handleLogout} />
         <Route
           exact
           path="/"
@@ -115,19 +165,18 @@ class App extends Component {
             <>
               <RegisterForm
                 show={this.state.currentUser}
-                onChange={this.handleUserChange}
-                onSubmit={this.handleNewUserSubmit}
-                user={this.state.userFormData.user}
-                email={this.state.userFormData.email}
-                password={this.state.userFormData.password}
+                onChange={this.newUserHandleChange}
+                onSubmit={this.newUserHandleSubmit}
+                user={this.state.registerFormData.user}
+                email={this.state.registerFormData.email}
+                password={this.state.registerFormData.password}
               />
               <LoginForm
                 show={this.state.currentUser}
-                onChange={this.handleUserChange}
-                onSubmit={this.handleUserSubmit}
-                user={this.state.userFormData.user}
-                email={this.state.userFormData.email}
-                password={this.state.userFormData.password}
+                onChange={this.userHandleChange}
+                onSubmit={this.userHandleSubmit}
+                email={this.state.loginFormData.email}
+                password={this.state.loginFormData.password}
               />
             </>
           )}
@@ -146,6 +195,7 @@ class App extends Component {
               showOptions={this.state.showOptions}
               userInput={this.state.userInput}
               filteredOptions={this.state.filteredOptions}
+              activeOptions={this.state.activeOption}
             />
           )}
         />

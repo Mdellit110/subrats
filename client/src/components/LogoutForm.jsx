@@ -8,7 +8,7 @@ export default props => {
       <>
         <h2>Logout</h2>
         <form>
-          <button type="submit" onClick={handleSubmit}>
+          <button type="submit" onClick={handleLogout}>
             LogOut
           </button>
           <button type="submit" onClick={handleSubmit}>

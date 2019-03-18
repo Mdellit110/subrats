@@ -1,7 +1,7 @@
 import React from "react";
 
 export default props => {
-  const { show, userName, email, password, handleChange, handleSubmit } = props;
+  const { show, username, email, password, onChange, onSubmit } = props;
   return (
     !show && (
       <>
@@ -10,28 +10,28 @@ export default props => {
           <label htmlFor="email">Email </label>
           <input
             type="text"
-            onChange={handleChange}
+            onChange={onChange}
             name="email"
             id="email"
             value={email}
           />
-          <label htmlFor="userName">User Name</label>
+          <label htmlFor="username">User Name</label>
           <input
             type="text"
-            onChange={handleChange}
-            name="userName"
-            id="userName"
-            value={userName}
+            onChange={onChange}
+            name="username"
+            id="username"
+            value={username}
           />
           <label htmlFor="password">Password</label>
           <input
             type="password"
-            onChange={handleChange}
+            onChange={onChange}
             name="password"
             id="password"
             value={password}
           />
-          <button type="submit" onClick={handleSubmit}>
+          <button type="submit" onClick={onSubmit}>
             Register
           </button>
         </form>

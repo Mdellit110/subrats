@@ -5,14 +5,7 @@ class CommentForm extends Component {
     super(props);
   }
   render() {
-    const {
-      clean,
-      busy,
-      onTime,
-      comment,
-      handleChange,
-      handleSubmit
-    } = this.props;
+    const { clean, busy, onTime, comment, onChange, onSubmit } = this.props;
     return (
       <form>
         <h2>Comment Form</h2>
@@ -22,7 +15,7 @@ class CommentForm extends Component {
           name="clean"
           value={clean}
           id="clean"
-          onChange={handleChange}
+          onChange={onChange}
         />
         <label htmlFor="busy">Scale of 1-5, was the station busy</label>
         <input
@@ -30,7 +23,7 @@ class CommentForm extends Component {
           name="busy"
           value={busy}
           id="busy"
-          onChange={handleChange}
+          onChange={onChange}
         />
         <label htmlFor="onTime">
           How long did it take for your train to arrive?
@@ -40,7 +33,7 @@ class CommentForm extends Component {
           name="onTime"
           value={onTime}
           id="onTime"
-          onChange={handleChange}
+          onChange={onChange}
         />
         <label htmlFor="comment">Comments for you fellow commuters</label>
         <input
@@ -48,10 +41,10 @@ class CommentForm extends Component {
           name="comment"
           value={comment}
           id="comment"
-          onChange={handleChange}
+          onChange={onChange}
         />
 
-        <button onClick={handleSubmit} type="submit">
+        <button onClick={onSubmit} type="submit">
           Submit
         </button>
       </form>

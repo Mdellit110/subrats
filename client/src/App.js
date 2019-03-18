@@ -24,7 +24,7 @@ class App extends Component {
     super(props);
     this.state = {
       registerFormData: {
-        userName: "",
+        username: "",
         email: "",
         password: ""
       },
@@ -151,6 +151,7 @@ class App extends Component {
   }
   handleRegisterFormChange(e) {
     const { name, value } = e.target;
+    console.log("handleRegisterChange name, val", name, value);
     this.setState(prevState => ({
       registerFormData: {
         ...prevState.registerFormData,
@@ -192,7 +193,7 @@ class App extends Component {
                 show={this.state.currentUser}
                 onChange={this.handleRegisterFormChange}
                 onSubmit={this.handleRegister}
-                user={this.state.registerFormData.user}
+                username={this.state.registerFormData.username}
                 email={this.state.registerFormData.email}
                 password={this.state.registerFormData.password}
               />
@@ -206,7 +207,11 @@ class App extends Component {
             </>
           )}
         />
-        <Route exact path="/home" render={() => <Home />} />
+        <Route
+          exact
+          path="/home"
+          render={() => <Home userData={this.userData} />}
+        />
         <Route
           exact
           path="/search"
@@ -237,7 +242,7 @@ class App extends Component {
             <RegisterForm
               onChange={this.editFormChange}
               onSubmit={this.handleEdit}
-              user={this.state.userData.user}
+              user={this.state.userData.username}
               email={this.state.userData.email}
               password={this.state.userData.password}
             />

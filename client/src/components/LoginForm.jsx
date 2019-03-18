@@ -1,7 +1,7 @@
 import React from "react";
 
 export default props => {
-  const { show, email, password, handleChange, handleSubmit } = props;
+  const { show, email, password, onChange, onSubmit } = props;
   return (
     show && (
       <>
@@ -10,7 +10,7 @@ export default props => {
           <label htmlFor="email">Email </label>
           <input
             type="text"
-            onChange={handleChange}
+            onChange={onChange}
             name="email"
             id="email"
             value={email}
@@ -18,12 +18,12 @@ export default props => {
           <label htmlFor="password">Password</label>
           <input
             type="password"
-            onChange={handleChange}
+            onChange={onChange}
             name="password"
             id="password"
             value={password}
           />
-          <button type="submit" onClick={handleSubmit}>
+          <button type="submit" onClick={onSubmit}>
             Sign In
           </button>
         </form>

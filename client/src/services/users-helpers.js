@@ -1,9 +1,9 @@
 import axios from "axios";
-const BASE_URL = "http://localhost:3000";
+const BASE_URL = "https://tranquil-ravine-67605.herokuapp.com";
 
 const createNewUser = async user => {
   console.log("this is create user: user", user);
-  const respData = await axios.post(`${BASE_URL}/users/`, user);
+  const respData = await axios.post(`${BASE_URL}/users/register`, user);
   console.log("this is create user: resp", respData);
   return respData;
 };

@@ -10,24 +10,25 @@ const sequelize = new Sequelize({
 });
 
 const User = sequelize.define( 'user', {
+  first_name: Sequelize.STRING,
+  last_name: Sequelize.STRING,
   email: {
     type: Sequelize.STRING,
-    unique: true,
+    unique: true, // checks if email is already being used
     allowNull: false,
     validate: {
-      isEmail: true,
-      notNull: {
-        msg: 'please enter an email adress'
+      isEmail: true, // checks if input is in email form
+      notNull: { // message given if null
+        msg: 'please enter an email address'
       }
     }
   },
   username: {
     type: Sequelize.STRING,
-    unique: true,
+    unique: true, // checks if username is already being used
     allowNull: false,
     validate: {
-      isEmail: true,
-      notNull: {
+      notNull: { // message given if null
         msg: 'please enter a username'
       }
     }
@@ -36,8 +37,8 @@ const User = sequelize.define( 'user', {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
-      len: [8,30],
-      notNull: {
+      len: [8,30], // password must be more than 8 characters
+      notNull: { // message given if null
         msg: 'please enter a password'
       }
     }
@@ -47,7 +48,7 @@ const User = sequelize.define( 'user', {
 
 const Station = sequelize.define( 'Station', {
   name: Sequelize.STRING,
-  latitude: Sequelize.INTEGER,
+  latitude: Sequelize.INTEGER, // log and lat are for geolocation
   longitude: Sequelize.INTEGER,
 });
 
@@ -56,21 +57,21 @@ const Comment = sequelize.define( 'comments', {
     type: Sequelize.INTEGER,
     allowNull: false,
     validate: {
-      len: [1,5],
+      len: [1,5], // allows only numbers 1-5
     }
   },
   cleanliness: {
     type: Sequelize.INTEGER,
     allowNull: false,
     validate: {
-      len: [1,5],
+      len: [1,5], // allows only numbers 1-5
     }
   },
   wait_time: {
     type: Sequelize.INTEGER,
     allowNull: false,
     validate: {
-      len: [1,5],
+      len: [1,5], // allows only numbers 1-5
     }
   },
   opt_comment: Sequelize.STRING,

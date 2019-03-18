@@ -51,8 +51,12 @@ const Station = sequelize.define( 'Station', {
   name: Sequelize.STRING,
   geolocation: Sequelize.STRING,
   lines: Sequelize.STRING,
-  details: Sequelize.STRING
+  details: Sequelize.STRING,
+
+}, {
+  timestamps: false
 });
+
 
 const Comment = sequelize.define( 'comments', {
   activity: {

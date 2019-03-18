@@ -1,12 +1,10 @@
 
-BEGIN;
-
 CREATE TABLE IF NOT EXISTS Stations(
   name VARCHAR(34) NOT NULL,
   geolocation VARCHAR(45) NOT NULL,
   lines VARCHAR(15) NOT NULL,
   details VARCHAR(86) NOT NULL
-  
+
 );
 
 INSERT INTO Stations(name, geolocation, lines, details) VALUES ('Astor Pl','POINT (-73.99106999861966 40.73005400028978)','4-6-6 Express','4 nights, 6-all times, 6 Express-weekdays AM southbound, PM northbound');

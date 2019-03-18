@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js",
     "dev": "nodemon server.js",
-    "resetDb": "node resetDb.js",
+    "resetDb": "node resetDb.js && psql -d subrats_db -f seed.sql",
     "seed": "node seed.js",
     "debug": "nodemon --inspect-brk server.js"
   },

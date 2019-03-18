@@ -13,7 +13,7 @@ usersRouter.get('/verify', restrict, async (req, res) => {
   res.json({user: res.locals.user});
 });
 
-usersRouter.post('/', async (req, res, next) => {
+usersRouter.post('/register', async (req, res, next) => {
   try {
     const {
       username,

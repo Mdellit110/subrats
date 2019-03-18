@@ -49,8 +49,9 @@ const User = sequelize.define( 'user', {
 
 const Station = sequelize.define( 'Station', {
   name: Sequelize.STRING,
-  latitude: Sequelize.INTEGER, // log and lat are for geolocation
-  longitude: Sequelize.INTEGER,
+  geolocation: Sequelize.STRING,
+  lines: Sequelize.STRING,
+  details: Sequelize.STRING
 });
 
 const Comment = sequelize.define( 'comments', {

@@ -60,7 +60,7 @@ usersRouter.post('/login', async (req, res, next) => {
  });
 
 const isPassValid = await checkPassword(password, user.password_digest);
-if(isPassValid){
+if (isPassValid) {
   const {
     password_digest,
     ...userData,

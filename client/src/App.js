@@ -12,6 +12,8 @@ import CommentForm from "./components/CommentForm";
 import UserProfile from "./components/UserProfile";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
+// jwt-decode lets us decode json web token and access the data in them
+import decode from "jwt-decode";
 
 class App extends Component {
   constructor(props) {
@@ -100,6 +102,16 @@ class App extends Component {
     this.setState((prevState, newState) => ({
       [name]: value
     }));
+  }
+
+  async componentDidMount() {
+    const checkUser = localStorage.getItem("jwt");
+    if (checkUser) {
+      const user = decode(checkUser);
+      this.setState({
+        currentUser: user
+      });
+    }
   }
 
   render() {

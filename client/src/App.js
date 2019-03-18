@@ -46,7 +46,11 @@ class App extends Component {
     this.handleQueryKeyDown = this.handleQueryKeyDown.bind(this);
     this.handleQuerySubmit = this.handleQuerySubmit.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
+    this.handleLoginFormChange = this.handleLoginFormChange.bind(this);
+    this.handleRegisterFormChange = this.handleRegisterFormChange.bind(this);
     this.fetchStations = this.fetchStations.bind(this);
+    this.handleLogin = this.handleLogin.bind(this);
+    this.handleRegister = this.handleRegister.bind(this);
   }
 
   handleQueryChange = e => {
@@ -136,6 +140,25 @@ class App extends Component {
     });
   }
 
+  handleLoginFormChange(e) {
+    const { name, value } = e.target;
+    this.setState(prevState => ({
+      loginFormData: {
+        ...prevState.loginFormData,
+        [name]: value
+      }
+    }));
+  }
+  handleRegisterFormChange(e) {
+    const { name, value } = e.target;
+    this.setState(prevState => ({
+      registerFormData: {
+        ...prevState.registerFormData,
+        [name]: value
+      }
+    }));
+  }
+
   async fetchStations() {
     const stationData = await fetchStations();
     this.setState((prevState, newState) => ({
@@ -167,16 +190,16 @@ class App extends Component {
             <>
               <RegisterForm
                 show={this.state.currentUser}
-                onChange={this.newUserHandleChange}
-                onSubmit={this.newUserHandleSubmit}
+                onChange={this.handleRegisterFormChange}
+                onSubmit={this.handleRegister}
                 user={this.state.registerFormData.user}
                 email={this.state.registerFormData.email}
                 password={this.state.registerFormData.password}
               />
               <LoginForm
                 show={this.state.currentUser}
-                onChange={this.userHandleChange}
-                onSubmit={this.userHandleSubmit}
+                onChange={this.handleLoginFormChange}
+                onSubmit={this.handleLogin}
                 email={this.state.loginFormData.email}
                 password={this.state.loginFormData.password}
               />
@@ -202,12 +225,29 @@ class App extends Component {
           )}
         />
         <Route exact path="/station/:id" render={() => <StationPage />} />
-        <Route exact path="/user/:id" render={() => <UserProfile />} />
+        <Route
+          exact
+          path="/user/:id"
+          render={() => <UserProfile userData={this.userData} />}
+        />
+        <Route
+          exact
+          path="/user/:id/edit"
+          render={() => (
+            <RegisterForm
+              onChange={this.editFormChange}
+              onSubmit={this.handleEdit}
+              user={this.state.userData.user}
+              email={this.state.userData.email}
+              password={this.state.userData.password}
+            />
+          )}
+        />
         <Route exact path="/contact" render={() => <Contact />} />
         <Route
           exact
           path="/station/:id/new-comment"
-          render={() => <CommentForm />}
+          render={() => <CommentForm userData={this.userData} />}
         />
       </div>
     );

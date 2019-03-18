@@ -11,7 +11,10 @@ export default props => {
           <button type="submit" onClick={handleLogout}>
             LogOut
           </button>
-          <button type="submit" onClick={handleSubmit}>
+          <button
+            type="submit"
+            onClick={() => this.props.history.push(`/home`)}
+          >
             Cancel
           </button>
         </form>

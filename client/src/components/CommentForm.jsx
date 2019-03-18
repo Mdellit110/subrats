@@ -42,7 +42,7 @@ class CommentForm extends Component {
           id="onTime"
           onChange={handleChange}
         />
-        <label htmlFor="onTime">Comments for you fellow commuters</label>
+        <label htmlFor="comment">Comments for you fellow commuters</label>
         <input
           type="text"
           name="comment"

@@ -3,7 +3,7 @@ import { withRouter } from "react-router-dom";
 
 const CommentList = props => {
   const { commentList } = props;
-  console.log("stationList: renderstock", stationList);
+  console.log("commentList: props.commentList", comment);
   return (
     <div className="stock-list">
       {commentList &&

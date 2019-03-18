@@ -17,7 +17,9 @@ const User = sequelize.define( 'user', {
     unique: true, // checks if email is already being used
     allowNull: false,
     validate: {
-      isEmail: true, // checks if input is in email form
+      isEmail: { // checks if input is in email form
+        msg: 'please enter a valid email address'
+      },
       notNull: { // message given if null
         msg: 'please enter an email address'
       }
@@ -37,7 +39,6 @@ const User = sequelize.define( 'user', {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
-      len: [8,30], // password must be more than 8 characters
       notNull: { // message given if null
         msg: 'please enter a password'
       }

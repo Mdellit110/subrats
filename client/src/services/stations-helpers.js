@@ -8,5 +8,4 @@ const fetchStations = async  => {
   return respData;
 };
 
-
 export { fetchStations };

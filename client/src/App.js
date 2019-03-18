@@ -110,7 +110,8 @@ class App extends Component {
   async handleLogin() {
     const userData = await loginUser(this.state.loginFormData);
     this.setState({
-      currentUser: userData.user
+      currentUser: userData.user,
+      userData: userData
     });
     localStorage.setItem("jwt", userData.token);
   }
@@ -119,7 +120,8 @@ class App extends Component {
     e.preventDefault();
     const userData = await createNewUser(this.state.registerFormData);
     this.setState({
-      currentUser: userData.user
+      currentUser: userData.user,
+      userData: userData
     });
     localStorage.setItem("jwt", userData.token);
   }
@@ -132,6 +134,7 @@ class App extends Component {
   }
 
   async componentDidMount() {
+    await this.fetchStations;
     const checkUser = localStorage.getItem("jwt");
     if (checkUser) {
       const user = decode(checkUser);

@@ -14,6 +14,8 @@ import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 // jwt-decode lets us decode json web token and access the data in them
 import decode from "jwt-decode";
+import { createNewUser, loginFormData } from "./services/users-helpers";
+import fetchStations from "./services/stations-helpers";
 
 class App extends Component {
   constructor(props) {
@@ -41,6 +43,7 @@ class App extends Component {
     this.handleQueryClick = this.handleQueryClick.bind(this);
     this.handleQueryKeyDown = this.handleQueryKeyDown.bind(this);
     this.handleQuerySubmit = this.handleQuerySubmit.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
   }
 
   handleQueryChange = e => {
@@ -104,6 +107,30 @@ class App extends Component {
     }));
   }
 
+  async handleLogin() {
+    const userData = await loginUser(this.state.loginFormData);
+    this.setState({
+      currentUser: userData.user
+    });
+    localStorage.setItem("jwt", userData.token);
+  }
+
+  async handleRegister(e) {
+    e.preventDefault();
+    const userData = await createNewUser(this.state.registerFormData);
+    this.setState({
+      currentUser: userData.user
+    });
+    localStorage.setItem("jwt", userData.token);
+  }
+
+  handleLogout() {
+    localStorage.removeItem("jwt");
+    this.setState({
+      currentUser: null
+    });
+  }
+
   async componentDidMount() {
     const checkUser = localStorage.getItem("jwt");
     if (checkUser) {
@@ -119,7 +146,7 @@ class App extends Component {
       <div className="Main-app-body">
         <h1>Subway Rats</h1>
         <Header />
-        <Footer />
+        <Footer handleLogout={this.handleLogout} />
         <Route
           exact
           path="/"
@@ -127,16 +154,16 @@ class App extends Component {
             <>
               <RegisterForm
                 show={this.state.currentUser}
-                onChange={this.handleUserChange}
-                onSubmit={this.handleNewUserSubmit}
+                onChange={this.newUserHandleChange}
+                onSubmit={this.newUserHandleSubmit}
                 user={this.state.userFormData.user}
                 email={this.state.userFormData.email}
                 password={this.state.userFormData.password}
               />
               <LoginForm
                 show={this.state.currentUser}
-                onChange={this.handleUserChange}
-                onSubmit={this.handleUserSubmit}
+                onChange={this.userHandleChange}
+                onSubmit={this.userHandleSubmit}
                 user={this.state.userFormData.user}
                 email={this.state.userFormData.email}
                 password={this.state.userFormData.password}

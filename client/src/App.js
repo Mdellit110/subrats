@@ -294,7 +294,10 @@ class App extends Component {
           path="/logout"
           render={() => <LogoutForm handleLogout={this.handleLogout} />}
         />
-        <Footer handleLogout={this.handleLogout} />
+        <Footer
+          handleLogout={this.handleLogout}
+          show={this.state.currentUser}
+        />
       </div>
     );
   }

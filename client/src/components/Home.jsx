@@ -20,7 +20,6 @@ class Home extends Component {
   //   }
   componentDidMount() {
     this.createCloseStations();
-    this.initMap();
   }
   render() {
     const { user, show } = this.props;

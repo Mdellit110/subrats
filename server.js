@@ -4,7 +4,7 @@ const logger = require("morgan");
 const cors = require("cors");
 const usersRouter = require("./routes/usersRouter");
 const stationsRouter = require("./routes/stationsRouter");
-const PORT = 9000;
+const PORT = process.env.PORT || 9000;
 const app = express();
 
 app.use(cors());

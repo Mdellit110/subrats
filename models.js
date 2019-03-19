@@ -1,6 +1,17 @@
-const Sequelize = require('Sequelize');
-
-const sequelize = new Sequelize({
+const Sequelize = require('sequelize');
+let sequelize;
+if (process.env.DATABASE_URL) {
+  console.log('called');
+  sequelize = new Sequelize(process.env.DATABASE_URL, {
+    dialect:  'postgres',
+    logging:  true,
+    operatorsAliases: false,
+    define: {
+      underscored: true
+    }
+  });
+} else {
+  sequelize = new Sequelize({
   database: 'subrats_db',
   dialect: 'postgres',
   operatorAliases: false,
@@ -8,7 +19,7 @@ const sequelize = new Sequelize({
     underscored: true,
   },
 });
-
+}
 const User = sequelize.define( 'user', {
   first_name: Sequelize.STRING,
   last_name: Sequelize.STRING,

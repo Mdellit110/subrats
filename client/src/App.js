@@ -49,7 +49,7 @@ class App extends Component {
     this.handleLogout = this.handleLogout.bind(this);
     this.handleLoginFormChange = this.handleLoginFormChange.bind(this);
     this.handleRegisterFormChange = this.handleRegisterFormChange.bind(this);
-    this.fetchStations = this.fetchStations.bind(this);
+    this.getStations = this.getStations.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
     this.handleRegister = this.handleRegister.bind(this);
     this.handleLoginClick = this.handleLoginClick.bind(this);
@@ -172,22 +172,27 @@ class App extends Component {
     }));
   }
 
-  async fetchStations() {
+  async getStations() {
     const stationData = await fetchStations();
-    const autocompleteOptions = stationData.map(station => station.name);
+    console.log(stationData);
+    const autocompleteOptions = stationData.data.map(station => station.name);
     this.setState((prevState, newState) => ({
-      stationData: stationData,
+      stationData: stationData.data,
       autocompleteOptions: autocompleteOptions
     }));
   }
 
   async componentDidMount() {
-    await this.fetchStations;
+    await this.getStations();
     const checkUser = localStorage.getItem("jwt");
     if (checkUser) {
       const user = decode(checkUser);
       this.setState({
-        currentUser: user
+        currentUser: user,
+        userData: {
+          token: checkUser,
+          user
+        }
       });
     }
   }

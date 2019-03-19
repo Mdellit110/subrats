@@ -116,12 +116,11 @@ class App extends Component {
     }));
   }
 
-  async handleLogin(e) {
-    e.preventDefault();
+  async handleLogin() {
     const userData = await loginUser(this.state.loginFormData);
     this.setState({
-      currentUser: userData.data.user,
-      userData: userData.data
+      currentUser: userData.user,
+      userData: userData
     });
     localStorage.setItem("jwt", userData.data.token);
   }
@@ -138,10 +137,10 @@ class App extends Component {
     e.preventDefault();
     const userData = await createNewUser(this.state.registerFormData);
     this.setState({
-      currentUser: userData.data.user,
-      userData: userData.data
+      currentUser: userData.user,
+      userData: userData
     });
-    localStorage.setItem("jwt", userData.data.token);
+    localStorage.setItem("jwt", userData.token);
   }
 
   handleLogout() {
@@ -173,6 +172,7 @@ class App extends Component {
   }
 
   async fetchStations() {
+    debugger;
     const stationData = await fetchStations();
     const autocompleteOptions = stationData.map(station => station.name);
     this.setState((prevState, newState) => ({
@@ -182,7 +182,7 @@ class App extends Component {
   }
 
   async componentDidMount() {
-    await this.fetchStations;
+    await this.fetchStations();
     const checkUser = localStorage.getItem("jwt");
     if (checkUser) {
       const user = decode(checkUser);
@@ -271,8 +271,8 @@ class App extends Component {
           path="/register"
           render={() => (
             <RegisterForm
-              onChange={this.handleRegisterFormChange}
-              onSubmit={this.handleRegister}
+              onChange={this.editFormChange}
+              onSubmit={this.handleEdit}
               user={this.state.userData.username}
               email={this.state.userData.email}
               password={this.state.userData.password}

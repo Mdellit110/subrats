@@ -12,6 +12,7 @@ import CommentForm from "./components/CommentForm";
 import UserProfile from "./components/UserProfile";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
+import LogoutForm from "./components/LogoutForm";
 // jwt-decode lets us decode json web token and access the data in them
 import decode from "jwt-decode";
 import {
@@ -223,7 +224,7 @@ class App extends Component {
       <div className="Main-app-body">
         <div className="header-container">
           <h1 className="main-title">Subway Rats</h1>
-          <Header />
+          <Header show={this.state.currentUser} />
         </div>
         <Route
           exact
@@ -307,7 +308,15 @@ class App extends Component {
           path="/station/:id/new-comment"
           render={() => <CommentForm userData={this.userData} />}
         />
-        <Footer handleLogout={this.handleLogout} />
+        <Route
+          exact
+          path="/logout"
+          render={() => <LogoutForm handleLogout={this.handleLogout} />}
+        />
+        <Footer
+          handleLogout={this.handleLogout}
+          show={this.state.currentUser}
+        />
       </div>
     );
   }

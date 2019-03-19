@@ -9,6 +9,7 @@ class Home extends Component {
       closeStations: []
     };
   }
+  
   render() {
     console.log(this.props.currentLocation)
     return (

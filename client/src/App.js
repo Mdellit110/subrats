@@ -52,10 +52,11 @@ class App extends Component {
     this.getAllStations = this.getAllStations.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
     this.handleRegister = this.handleRegister.bind(this);
-    this.toggleLogin = this.toggleLogin.bind(this);
+    this.handleLoginClick = this.handleLoginClick.bind(this);
   }
 
   handleQueryChange = e => {
+    e.preventDefault();
     const { autocompleteOptions } = this.state;
     const userInput = e.currentTarget.value;
     console.log("this is userInput", userInput);
@@ -87,6 +88,7 @@ class App extends Component {
   }
 
   handleQueryKeyDown = e => {
+    e.preventDefault();
     const { activeOption, filteredOptions } = this.state;
     if (e.keyCode === 13) {
       this.setState({
@@ -116,7 +118,8 @@ class App extends Component {
     }));
   }
 
-  async handleLogin() {
+  async handleLogin(e) {
+    e.preventDefault();
     const userData = await loginUser(this.state.loginFormData);
     this.setState({
       currentUser: userData.data.user,
@@ -159,6 +162,7 @@ class App extends Component {
       currentUser: null,
       toggleLogin: true
     });
+    this.props.history.push(`/`);
   }
 
   handleLoginFormChange(e) {

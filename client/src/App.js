@@ -29,6 +29,7 @@ class App extends Component {
         password: ""
       },
       currentUser: null,
+      toggleLogin: true,
       loginFormData: {
         email: "",
         password: ""
@@ -51,6 +52,7 @@ class App extends Component {
     this.fetchStations = this.fetchStations.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
     this.handleRegister = this.handleRegister.bind(this);
+    this.handleLoginClick = this.handleLoginClick.bind(this);
   }
 
   handleQueryChange = e => {
@@ -123,6 +125,14 @@ class App extends Component {
     localStorage.setItem("jwt", userData.token);
   }
 
+  handleLoginClick() {
+    console.log("I want to register: handleLoginClick button".toggleLogin);
+    this.setState((prevState, newState) => ({
+      toggleLogin: !prevState.toggleLogin
+    }));
+    this.props.history.push(`/register`);
+  }
+
   async handleRegister(e) {
     e.preventDefault();
     const userData = await createNewUser(this.state.registerFormData);
@@ -136,7 +146,8 @@ class App extends Component {
   handleLogout() {
     localStorage.removeItem("jwt");
     this.setState({
-      currentUser: null
+      currentUser: null,
+      toggleLogin: true
     });
   }
 
@@ -194,10 +205,12 @@ class App extends Component {
             <>
               <LoginForm
                 show={this.state.currentUser}
+                toggle={this.state.toggleLogin}
                 onChange={this.handleLoginFormChange}
                 onSubmit={this.handleLogin}
                 email={this.state.loginFormData.email}
                 password={this.state.loginFormData.password}
+                onClick={this.handleLoginClick}
               />
             </>
           )}

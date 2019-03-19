@@ -1,9 +1,10 @@
 import React from "react";
 
 export default props => {
-  const { show, email, password, onChange, onSubmit } = props;
+  const { toggle, show, email, password, onChange, onSubmit, onClick } = props;
+  const showLogin = !show && toggle;
   return (
-    !show && (
+    showLogin && (
       <div className="user-form-container">
         <form>
           <h2>Login</h2>
@@ -30,10 +31,7 @@ export default props => {
           <button type="submit" onClick={onSubmit}>
             Sign In
           </button>
-          <button
-            type="submit"
-            onClick={() => this.props.history.push(`/register`)}
-          >
+          <button type="submit" onClick={onClick}>
             Register
           </button>
         </form>

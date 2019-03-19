@@ -213,6 +213,15 @@ class App extends Component {
                 password={this.state.loginFormData.password}
                 onClick={this.handleLoginClick}
               />
+              <RegisterForm
+                show={this.state.currentUser}
+                toggle={this.state.toggleLogin}
+                onChange={this.handleRegisterFormChange}
+                onSubmit={this.handleRegister}
+                user={this.state.userData.username}
+                email={this.state.userData.email}
+                password={this.state.userData.password}
+              />
             </>
           )}
         />
@@ -266,19 +275,7 @@ class App extends Component {
           path="/station/:id/new-comment"
           render={() => <CommentForm userData={this.userData} />}
         />
-        <Route
-          exact
-          path="/register"
-          render={() => (
-            <RegisterForm
-              onChange={this.handleRegisterFormChange}
-              onSubmit={this.handleRegister}
-              user={this.state.userData.username}
-              email={this.state.userData.email}
-              password={this.state.userData.password}
-            />
-          )}
-        />
+
         <Footer handleLogout={this.handleLogout} />
       </div>
     );

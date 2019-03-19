@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import StationList from "./StationList";
+import Map from "./Map";
 import { Link } from "react-router-dom";
-
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -9,37 +9,24 @@ class Home extends Component {
       closeStations: []
     };
   }
-  createCloseStations() {
-    const { user, stationList } = this.props;
-  }
-  //   initMap() {
-  //     map = new google.maps.Map(document.getElementById("map"), {
-  //       center: { lat: -34.397, lng: 150.644 },
-  //       zoom: 8
-  //     });
-  //   }
-  componentDidMount() {
-    this.createCloseStations();
-    this.initMap();
-  }
   render() {
-    const { user, show } = this.props;
+    console.log(this.props.currentLocation)
     return (
-      show && (
-        <div className="home-container">
-          <div className="map-container">
-            <h1>HOME</h1>
-            {/* <h3>My Google Maps Demo</h3>
-            <div id="map" />{map}</div>
-            <script
-              async
-              defer
-              src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCkUOdZ5y7hMm0yrcCQoCvLwzdM6M8s5qk&callback=initMap"
-            /> */}
-          </div>
-          <StationList stations={this.state.closeStations} />
+      <div className="home-container">
+        <div className="map-container">
+          <h1>HOME</h1>
+          {
+            (this.props.currentLocation !== '')?
+              <Map
+                currentLocation={this.props.currentLocation}
+                stationData={this.props.stationData}
+              />:
+              <>
+              loading
+              </>
+          }
         </div>
-      )
+      </div>
     );
   }
 }

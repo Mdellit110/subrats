@@ -187,7 +187,6 @@ class App extends Component {
   }
   async getStations() {
     const stationData = await fetchStations();
-    console.log(stationData);
     const autocompleteOptions = stationData.data.map(station => station.name);
     this.setState((prevState, newState) => ({
       stationData: stationData.data,
@@ -202,7 +201,10 @@ class App extends Component {
       if (this.state.currentLocation === '')
       navigator.geolocation.getCurrentPosition((position) => {
         this.setState({
-          currentLocation: `${position.coords.latitude}, ${position.coords.longitude}`
+          currentLocation: {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          }
         })
       })
       const user = decode(checkUser);
@@ -254,7 +256,12 @@ class App extends Component {
           exact
           path="/home"
           render={() => (
-            <Home show={this.state.currentUser} userData={this.userData} />
+            <Home
+              show={this.state.currentUser}
+              userData={this.userData}
+              currentLocation={this.state.currentLocation}
+              stationData={this.state.stationData}
+            />
           )}
         />
         <Route

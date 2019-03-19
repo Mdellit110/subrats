@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Route, Link, withRouter } from "react-router-dom";
 import fetchStationData from "../services/users-helpers";
+import ReactChartkick, { LineChart } from "react-chartkick";
+import Chart from "chart.js";
 
 class StationPage extends Component {
   constructor(props) {
@@ -45,10 +47,25 @@ class StationPage extends Component {
   }
   render() {
     const { station } = this.props.station;
+    const lineChart = (
+      <div>
+        <LineChart
+          data={this.state.chartData}
+          title={this.createStationId()}
+          min={null}
+          max={null}
+          width={"800px"}
+          height={"400px"}
+          hAxis={"Time"}
+          vAxis={"Busy"}
+        />
+      </div>
+    );
     console.log("STATIONPAGE station", station);
     return (
       <>
         <h1>{station.name}</h1>
+        <h2>{station.lines}</h2>
         <button
           className="station-button"
           onClick={() =>
@@ -65,6 +82,8 @@ class StationPage extends Component {
         >
           Favorite
         </button>
+        <div className="chart-container">{lineChart}</div>
+        <CommentList commentList={this.state.stationData} />
       </>
     );
   }

@@ -25,14 +25,6 @@ const StationList = props => {
               >
                 Comment
               </button>
-              <button
-                className="station-button"
-                onClick={() =>
-                  props.history.push(`/station/${station.index}/favorite`)
-                }
-              >
-                Favorite
-              </button>
             </div>
           </div>
         ))}

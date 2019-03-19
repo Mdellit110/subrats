@@ -9,13 +9,36 @@ class Home extends Component {
       closeStations: []
     };
   }
+  createCloseStations() {
+    const { user, stationList } = this.props;
+  }
+  //   initMap() {
+  //     map = new google.maps.Map(document.getElementById("map"), {
+  //       center: { lat: -34.397, lng: 150.644 },
+  //       zoom: 8
+  //     });
+  //   }
+  componentDidMount() {
+    this.createCloseStations();
+    this.initMap();
+  }
   render() {
-    const { user } = this.props;
+    const { user, show } = this.props;
     return (
-      <div className="home-container">
-        IMPORT MAP HERE STATIONS near you
-        <StationList stations={this.state.closeStations} />
-      </div>
+      show && (
+        <div className="home-container">
+          <div className="map-container">
+            {/* <h3>My Google Maps Demo</h3>
+            <div id="map" />{map}</div>
+            <script
+              async
+              defer
+              src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCkUOdZ5y7hMm0yrcCQoCvLwzdM6M8s5qk&callback=initMap"
+            /> */}
+          </div>
+          <StationList stations={this.state.closeStations} />
+        </div>
+      )
     );
   }
 }

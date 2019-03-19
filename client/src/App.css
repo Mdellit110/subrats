@@ -1,0 +1,77 @@
+#map {
+  height: 400px; /* The height is 400 pixels */
+  width: 100%; /* The width is the width of the web page */
+}
+body {
+  background-color: #64b0c4;
+}
+nav {
+  display: flex;
+  justify-content: center;
+  background-color: rgba(245, 180, 185, 0.4);
+  width: 100%;
+}
+nav a {
+  text-decoration: none;
+  color: white;
+  margin: 10px;
+  font: 18px;
+}
+.header-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-content: center;
+  align-content: center;
+  width: 100%;
+  height: 20vh;
+  border-bottom: white 2px solid;
+}
+.main-title {
+  text-align: center;
+}
+.footer {
+  display: flex;
+  justify-content: center;
+  background-color: rgba(245, 180, 185, 0.4);
+  width: 100%;
+}
+.footer a {
+  text-decoration: none;
+  color: white;
+  margin: 10px;
+  font: 18px;
+}
+.user-form-container {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  background-color: grey;
+  height: 60vh;
+  width: 80%;
+  border-radius: 20px;
+  border: 3px darkgrey solid;
+  margin: 20px auto;
+  padding: 20px;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+button {
+  cursor: pointer;
+  background-color: rgba(85, 72, 46, 0.6);
+  border: none;
+  color: white;
+  height: auto;
+  padding: 20px 32px;
+  margin: 8px auto;
+  text-align: center;
+  border-radius: 15px;
+  text-decoration: none;
+  display: inline-block;
+  width: 30%;
+  justify-content: center;
+}

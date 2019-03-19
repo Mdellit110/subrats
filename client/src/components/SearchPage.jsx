@@ -12,7 +12,8 @@ const SearchPage = props => {
     filteredOptions,
     showOptions,
     userInput,
-    onSubmit
+    onSubmit,
+    userData
   } = props;
   return (
     <div className="search-page-container">
@@ -27,7 +28,7 @@ const SearchPage = props => {
         filteredOptions={filteredOptions}
         activeOption={activeOption}
       />
-      <StationList />
+      <StationList stationList={userData.station_id} />
     </div>
   );
 };

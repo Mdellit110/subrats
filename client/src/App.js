@@ -56,6 +56,7 @@ class App extends Component {
   }
 
   handleQueryChange = e => {
+    e.preventDefault();
     const { autocompleteOptions } = this.state;
     const userInput = e.currentTarget.value;
     console.log("this is userInput", userInput);
@@ -87,6 +88,7 @@ class App extends Component {
   }
 
   handleQueryKeyDown = e => {
+    e.preventDefault();
     const { activeOption, filteredOptions } = this.state;
     if (e.keyCode === 13) {
       this.setState({
@@ -121,9 +123,14 @@ class App extends Component {
     const userData = await loginUser(this.state.loginFormData);
     this.setState({
       currentUser: userData.data.user,
-      userData: userData.data
+      userData: userData.data,
+      loginFormData: {
+        email: "",
+        password: ""
+      }
     });
     localStorage.setItem("jwt", userData.data.token);
+    this.props.history.push(`/home`);
   }
 
   handleLoginClick() {
@@ -131,7 +138,6 @@ class App extends Component {
     this.setState((prevState, newState) => ({
       toggleLogin: !prevState.toggleLogin
     }));
-    this.props.history.push(`/register`);
   }
 
   async handleRegister(e) {
@@ -139,9 +145,15 @@ class App extends Component {
     const userData = await createNewUser(this.state.registerFormData);
     this.setState({
       currentUser: userData.data.user,
-      userData: userData.data
+      userData: userData.data,
+      registerFormData: {
+        username: "",
+        email: "",
+        password: ""
+      }
     });
     localStorage.setItem("jwt", userData.data.token);
+    this.props.history.push(`/home`);
   }
 
   handleLogout() {
@@ -150,6 +162,7 @@ class App extends Component {
       currentUser: null,
       toggleLogin: true
     });
+    this.props.history.push(`/`);
   }
 
   handleLoginFormChange(e) {
@@ -171,7 +184,6 @@ class App extends Component {
       }
     }));
   }
-
   async getStations() {
     const stationData = await fetchStations();
     console.log(stationData);
@@ -217,6 +229,16 @@ class App extends Component {
                 email={this.state.loginFormData.email}
                 password={this.state.loginFormData.password}
                 onClick={this.handleLoginClick}
+              />
+              <RegisterForm
+                onClick={this.handleLoginClick}
+                show={this.state.currentUser}
+                toggle={this.state.toggleLogin}
+                onChange={this.handleRegisterFormChange}
+                onSubmit={this.handleRegister}
+                user={this.state.userData.username}
+                email={this.state.userData.email}
+                password={this.state.userData.password}
               />
             </>
           )}
@@ -270,19 +292,6 @@ class App extends Component {
           exact
           path="/station/:id/new-comment"
           render={() => <CommentForm userData={this.userData} />}
-        />
-        <Route
-          exact
-          path="/register"
-          render={() => (
-            <RegisterForm
-              onChange={this.handleRegisterFormChange}
-              onSubmit={this.handleRegister}
-              user={this.state.userData.username}
-              email={this.state.userData.email}
-              password={this.state.userData.password}
-            />
-          )}
         />
         <Footer handleLogout={this.handleLogout} />
       </div>

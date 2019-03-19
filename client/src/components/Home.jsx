@@ -28,6 +28,7 @@ class Home extends Component {
       show && (
         <div className="home-container">
           <div className="map-container">
+            <h1>HOME</h1>
             {/* <h3>My Google Maps Demo</h3>
             <div id="map" />{map}</div>
             <script

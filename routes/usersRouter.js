@@ -70,4 +70,25 @@ usersRouter.post("/login", async (req, res, next) => {
     res.status(500).send(e.message);
   }
 });
+
+usersRouter.get('/user/:id/comments', restrict, async (req, res) => {
+  const user = await User.findByPk(req.params.id);
+  const comments = await Comments.findAll({
+    where: {
+      user_id: user
+    }
+  });
+  res.json({comments});
+});
+
+usersRouter.put('/user/:id', restrict, async (req, res, next) => {
+  try {
+  const user = await User.findByPk(req.params.id);
+  user.update(req.body);
+  res.json({user});
+} catch (e) {
+  next(e);
+ }
+});
+
 module.exports = usersRouter;

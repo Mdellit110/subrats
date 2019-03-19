@@ -12,7 +12,6 @@ const QueryForm = props => {
     userInput,
     onSubmit
   } = props;
-  console.log("QUERTFORM Props: ", props);
   let optionList;
   if (showOptions && userInput) {
     if (filteredOptions.length) {

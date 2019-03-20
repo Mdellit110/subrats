@@ -7,6 +7,12 @@ const createNewUser = async user => {
   return respData;
 };
 
+const editUser = async user => {
+  const respData = await axios.put(`${BASE_URL}/users/register`, user);
+  console.log("this is edit user: resp", respData);
+  return respData;
+};
+
 const loginUser = async user => {
   const respData = await axios.post(`${BASE_URL}/users/login`, user);
   console.log("this is login user: resp", respData);
@@ -25,4 +31,4 @@ const fetchStationData = async station => {
   return respData;
 };
 
-export { fetchStations, fetchStationData, createNewUser, loginUser };
+export { editUser, fetchStations, fetchStationData, createNewUser, loginUser };

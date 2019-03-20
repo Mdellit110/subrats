@@ -28,13 +28,15 @@
     "body-parser": "^1.18.3",
     "cors": "^2.8.5",
     "express": "^4.16.4",
+    "google-maps-react": "^2.0.2",
     "jsonwebtoken": "^8.5.1",
     "jwt-decode": "^2.2.0",
     "morgan": "^1.9.1",
     "pg": "^7.9.0",
+    "prop-types": "^15.7.2",
     "react": "^16.8.4",
     "react-chartkick": "^0.3.0",
-    "prop-types": "^15.7.2",
+    "react-dom": "^16.8.4",
     "sequelize": "^5.1.0"
   }
 }

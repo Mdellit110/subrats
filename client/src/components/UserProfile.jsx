@@ -14,9 +14,7 @@ const UserProfile = props => {
       <StationList stations={userData.favoriteStations} />
       <button
         className="station-button"
-        onClick={() =>
-          this.props.history.push(`/user/${props.match.params}/edit/`)
-        }
+        onClick={() => props.history.push(`/user/${props.match.params}/edit/`)}
       >
         Edit User
       </button>

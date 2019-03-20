@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Route, Link, withRouter } from "react-router-dom";
 import { fetchStationData } from "../services/users-helpers";
 import CommentList from "./CommentList";
-import ReactChartkick, { LineChart } from "react-chartkick";
+import LineChart from "./LineChart";
 
 class StationPage extends Component {
   constructor(props) {
@@ -50,30 +50,15 @@ class StationPage extends Component {
     await this.fetchStationData();
   }
   componentDidUpdate(prevProps) {
-    if (prevProps.match.params !== this.props.match.params) {
+    if (prevProps.match.params.id !== this.props.match.params.id) {
       console.log("FETCHING STATION DATA!", this.props.stationData);
       this.fetchStationData();
     }
   }
   render() {
     const { currentStation } = this.props;
-    const lineChart = (
-      <div>
-        <LineChart
-          data={this.state.chartData}
-          title={this.createStationId()}
-          min={null}
-          max={null}
-          width={"800px"}
-          height={"400px"}
-          hAxis={"Time"}
-          vAxis={"Busy"}
-        />
-      </div>
-    );
     console.log("STATIONPAGE stationData", this.state.stationData);
     console.log("STATIONPAGE props.params", this.props.match.params);
-
     return (
       <>
         <h1>This is station name:{this.state.stationData.name}</h1>
@@ -81,14 +66,24 @@ class StationPage extends Component {
         <button
           className="station-button"
           onClick={() =>
-            this.props.history.push(`/station/${currentStation.id}/new-comment`)
+            this.props.history.push(
+              `/station/${this.props.match.params}/new-comment`
+            )
           }
         >
           Comment
         </button>
         <button className="station-button">Favorite</button>
+        <h2>Average Activity</h2>
+        <h2>Average Cleanliness</h2>
+        <h2>Average Timeliness</h2>
+        <LineChart
+          yAxis={"Busy"}
+          chartData={this.state.chartData}
+          stationId={this.props.match.params}
+        />
         {/* <div className="chart-container">{lineChart}</div> */}
-        <CommentList />
+        <CommentList commentData={this.stationData.comments} />
       </>
     );
   }

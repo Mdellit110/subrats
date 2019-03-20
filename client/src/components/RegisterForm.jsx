@@ -43,6 +43,10 @@ export default props => {
             id="password"
             value={password}
           />
+          <label class="switch">
+            <input type="checkbox" checked />
+            <span class="slider round" />
+          </label>
           <button type="submit" onClick={onSubmit}>
             {submitButtonText}
           </button>

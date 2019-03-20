@@ -1,9 +1,8 @@
 import ReactChartkick, { LineChart } from "react-chartkick";
 import React, { Component } from "react";
-import { Route, Link, withRouter } from "react-router-dom";
 
-const LineChart = props => {
-  const lineChart = (
+const Chart = props => {
+  const chart = (
     <div>
       <LineChart
         data={props.chartData}
@@ -17,6 +16,6 @@ const LineChart = props => {
       />
     </div>
   );
-  return <div>comst</div>;
+  return props.chartData && <div className="chart-container">{chart}</div>;
 };
-export default withRouter(LineChart);
+export default Chart;
